@@ -37,6 +37,7 @@ All **86 pure CVRP instances** reported in the manuscript are independently audi
 │   ├── benchmark_golden.py          # Large-scale Golden 9–20 runner (granular G = 28)
 │   ├── ablation_and_stats.py        # 4-variant ablation study (V1–V4) & Friedman/Wilcoxon tests
 │   ├── run_sensitivity.py           # Granular neighborhood size (G) sensitivity sweep
+│   ├── run_extensive_solver_comparison.py  # Section 5.7 equal-runtime comparison (OR-Tools, ALNS, ILS)
 │   └── test_hgwo_vns.py             # Smoke and unit tests for solver & validator
 ├── benchmarks/
 │   ├── P/                           # 24 raw CVRPLIB Augerat Set P .vrp files
@@ -56,7 +57,8 @@ All **86 pure CVRP instances** reported in the manuscript are independently audi
     ├── resultats_set_b_complet.csv
     ├── resultats_golden_cvrp.csv
     ├── audit_routes_set_p.csv
-    └── parameter_sensitivity_results.csv
+    ├── parameter_sensitivity_results.csv
+    └── extensive_solver_comparison.csv
 ```
 
 ## Requirements & Installation
@@ -64,11 +66,11 @@ All **86 pure CVRP instances** reported in the manuscript are independently audi
 All reported experiments were executed single-threaded on **1 CPU core** using **Python 3.11.2**, **NumPy 2.1.3**, and **SciPy 1.15.2**.
 
 ```bash
-git clone https://github.com/[GitHub-Username]/[Repository-Name].git
-cd [Repository-Name]
+git clone https://github.com/amineMeziane13/HGWO-VNS.git
+cd HGWO-VNS
 python3 -m venv .venv
 source .venv/bin/activate   # On Windows: .venv\Scripts\activate
-pip install numpy scipy matplotlib
+pip install numpy scipy matplotlib ortools
 ```
 
 ## Quick Verification (All 86 CVRPLIB Certificates)
@@ -112,6 +114,9 @@ python3 code/ablation_and_stats.py
 
 # 6. Granular candidate-list size sensitivity analysis
 python3 code/run_sensitivity.py
+
+# 7. Equal-runtime comparison vs. Google OR-Tools 9.14 (GLS/TS), ALNS-VND, and ILS-RVND (Table 10)
+python3 code/run_extensive_solver_comparison.py
 ```
 
 ## Summary of Audited Benchmark Results
@@ -130,6 +135,7 @@ Key comparative highlights:
 
 - **vs. Literature HABC** ([Djebbar & Kemmar, 2025](https://dergipark.org.tr/en/download/article-file/4714960)): **7.61%** mean distance reduction across the 20 comparable Set P instances (max **26.38%** on `P-n101-k4`, Wilcoxon $W = 0.0, p = 6.57 \times 10^{-5}$ one-sided).
 - **vs. Same-Hardware PyHABC**: **32.59%** mean distance reduction under identical paired seeds $\{17, 34, 51, 68, 85\}$ and iteration budgets ($N_{\text{pop}} = 24, T_{\max} = 120, P_{\text{stop}} = 25$; Wilcoxon $p = 2.00 \times 10^{-5}$).
+- **vs. External CVRP Solvers (Equal-Runtime, Section 5.7 / Table 10)**: Across 12 challenging CVRPLIB instances (4.0 s on 9 hard Augerat, 10.0 s on 3 Golden), pure-Python HGWO-VNS (`1.67%` mean gap, `12/12` feasible) beats compiled C++ Google OR-Tools 9.14 GLS (`5.58%`) and TS (`6.79%`) on **11/11** common instances ($p = 9.77 \times 10^{-4}$), solves ultra-tight `P-n55-k15` where OR-Tools fails, beats Python ILS-RVND (`3.43%`, **10/1/0**, $p = 1.95 \times 10^{-3}$), and statistically ties Python ALNS-VND (`1.31%`, $p = 0.432$).
 - **vs. Recent Discrete Swarm Hybrids** ([Fang et al., 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11390905/)): Across 40 common Augerat instances (20 Set A + 20 comparable Set P), HGWO-VNS achieves **0.18%** mean gap and **28/40 BKS**, outperforming Hybrid FA (`1.41%`, $p = 1.55 \times 10^{-5}$) and DAEO (`0.54%`, $p = 1.13 \times 10^{-2}$), and matching DWHO (`0.26%`, $p = 0.138$) and DSRACO (`0.17%`, $p = 0.777$).
 
 ## Experimental Protocol Notes
