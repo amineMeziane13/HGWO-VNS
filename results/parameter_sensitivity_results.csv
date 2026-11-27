@@ -1,0 +1,17 @@
+Parameter,Value,Suite,Mean_Gap_pct,Std_Gap_pct,Mean_Time_s,Valid
+Pack size N_pop,12,Set P (3 inst x 3 seeds),0.694,0.682,0.707,OK
+Pack size N_pop,18,Set P (3 inst x 3 seeds),0.652,0.632,0.917,OK
+Pack size N_pop,24,Set P (3 inst x 3 seeds),0.84,0.938,1.121,OK
+Pack size N_pop,36,Set P (3 inst x 3 seeds),0.346,0.482,2.04,OK
+Elite VND ratio p_elite,0.15,Set P (3 inst x 3 seeds),0.804,0.61,0.907,OK
+Elite VND ratio p_elite,0.3,Set P (3 inst x 3 seeds),0.84,0.938,1.12,OK
+Elite VND ratio p_elite,0.5,Set P (3 inst x 3 seeds),0.709,0.556,1.315,OK
+Elite VND ratio p_elite,1.0,Set P (3 inst x 3 seeds),0.504,0.568,2.059,OK
+Stagnation limit L_max,6,Set P (3 inst x 3 seeds),0.709,0.61,1.527,OK
+Stagnation limit L_max,10,Set P (3 inst x 3 seeds),0.559,0.556,1.372,OK
+Stagnation limit L_max,15,Set P (3 inst x 3 seeds),0.84,0.938,1.12,OK
+Stagnation limit L_max,20,Set P (3 inst x 3 seeds),0.84,0.938,1.2,OK
+Granularity G,12,Golden (2 inst x 2 seeds),3.242,0.959,2.371,OK
+Granularity G,20,Golden (2 inst x 2 seeds),2.873,1.144,4.521,OK
+Granularity G,28,Golden (2 inst x 2 seeds),2.863,1.027,6.892,OK
+Granularity G,40,Golden (2 inst x 2 seeds),2.78,0.817,9.458,OK
